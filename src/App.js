@@ -1,16 +1,12 @@
 import React from 'react';
-import PlanetContext from './context/PlanetsContext';
-import './App.css';
+import PlanetsProvider from './context/PlanetsProvider';
+import Table from './components/Table';
 
 function App() {
-  const INITIAL_STATE = {
-    planetsAPI: [],
-  };
-
   return (
-    <PlanetContext.Provider value={ INITIAL_STATE }>
-      <span>Hello, Jedi!</span>
-    </PlanetContext.Provider>
+    <PlanetsProvider>
+      <Table />
+    </PlanetsProvider>
   );
 }
 
