@@ -4,21 +4,22 @@ import planetsContext from './planetsContext';
 import getPlanets from '../services/getApiPlanets';
 
 function PlanetsProvider({ children }) {
-  const [data, setData] = useState({
-    data: [],
-  });
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const results = await getPlanets();
-      const filterResults = results.filter((item) => delete item.residentes);
-      setData(filterResults);
+      await getPlanets().then((resp) => {
+        setLoading(true);
+        setData(resp);
+        setLoading(false);
+      });
     };
     fetchData();
   }, []);
 
   return (
-    <planetsContext.Provider value={ data }>
+    <planetsContext.Provider value={ { data, loading } }>
       { children }
     </planetsContext.Provider>
   );
