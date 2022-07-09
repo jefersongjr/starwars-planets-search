@@ -5,7 +5,6 @@ import Carregando from './Carregando';
 
 function Table() {
   const { data, loading } = useContext(planetsContext);
-  console.log(filterByName);
   return (
     <div>
       <table>

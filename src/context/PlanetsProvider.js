@@ -6,6 +6,12 @@ import getPlanets from '../services/getApiPlanets';
 function PlanetsProvider({ children }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [filterByName, setFilterByName] = useState('');
+
+  const handleChange = ({ target }) => {
+    const { value } = target;
+    setFilterByName(value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +24,7 @@ function PlanetsProvider({ children }) {
   }, []);
 
   return (
-    <planetsContext.Provider value={ { data, loading } }>
+    <planetsContext.Provider value={ { data, loading, filterByName, handleChange } }>
       { children }
     </planetsContext.Provider>
   );

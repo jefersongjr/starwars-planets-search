@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import planetsContext from '../context/planetsContext';
 
 function InputFilterName() {
-  const [filterByName, setFilterByName] = useState('');
-  const handleChange = ({ target }) => {
-    const { value } = target;
-    setFilterByName(value);
-  };
+  const { filterByName, handleChange } = useContext(planetsContext);
   return (
     <section>
       <input
