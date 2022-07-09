@@ -10,7 +10,6 @@ function PlanetsProvider({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       await getPlanets().then((resp) => {
-        setLoading(true);
         setData(resp);
         setLoading(false);
       });
