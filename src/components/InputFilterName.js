@@ -9,6 +9,7 @@ function InputFilterName() {
         type="text"
         name="filterByName"
         value={ filterByName }
+        data-testid="name-filter"
         onChange={ handleChange }
       />
     </section>
