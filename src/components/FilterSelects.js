@@ -41,6 +41,7 @@ function SelectFilter() {
       <button
         type="button"
         data-testid="button-filter"
+        onClick={ () => console.log(filterByNumericValues) }
       >
         Filtrar
       </button>
