@@ -8,6 +8,7 @@ function InputFilterName() {
       <input
         type="text"
         name="filterByName"
+        data-testid="name-filter"
         value={ filterByName }
         onChange={ handleChange }
       />
