@@ -8,7 +8,7 @@ function SelectFilter() {
     <section>
       <select
         name="column"
-        value={ filterByNumericValues }
+        value={ filterByNumericValues.column }
         data-testid="column-filter"
         onChange={ handleChangeSelect }
       >
@@ -21,12 +21,12 @@ function SelectFilter() {
 
       <select
         name="comparasion"
-        value={ filterByNumericValues }
+        value={ filterByNumericValues.comparasion }
         data-testid="comparison-filter"
         onChange={ handleChangeSelect }
       >
-        <option>maior Que</option>
-        <option>menor Que</option>
+        <option>maior que</option>
+        <option>menor que</option>
         <option>igual a</option>
       </select>
 

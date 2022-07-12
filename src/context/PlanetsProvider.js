@@ -25,12 +25,6 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues((oldState) => ({ ...oldState, [name]: value }));
   };
 
-  const saveFilters = () => {
-    const { column, comparasion, value } = filterByNumericValues;
-    setsavedFilter((oldState) => ([...oldState,
-      { column, comparasion, value, filterByName }]));
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       await getPlanets().then((resp) => {
@@ -40,6 +34,18 @@ function PlanetsProvider({ children }) {
     };
     fetchData();
   }, []);
+
+  const saveFilters = () => {
+    const { column, comparasion, value } = filterByNumericValues;
+    setsavedFilter((oldState) => ([...oldState,
+      { column, comparasion, value, filterByName }]));
+
+    savedFilter.forEach((filterObject) => {
+      if (filterObject.filterByName) {
+        setData(data.filter((x) => x.name.includes(filterByName)));
+      }
+    });
+  };
 
   return (
     <planetsContext.Provider
