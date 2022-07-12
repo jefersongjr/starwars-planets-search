@@ -38,6 +38,13 @@ function SelectFilter() {
         onChange={ handleChangeNumber }
       />
 
+      <button
+        type="button"
+        data-testid="button-filter"
+      >
+        Filtrar
+      </button>
+
     </section>
   );
 }
