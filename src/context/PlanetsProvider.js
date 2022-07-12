@@ -19,6 +19,11 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues((oldState) => ({ ...oldState, [name]: value }));
   };
 
+  const handleChangeNumber = ({ target }) => {
+    const { value, name } = target;
+    setFilterByNumericValues((oldState) => ({ ...oldState, [name]: value }));
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       await getPlanets().then((resp) => {
@@ -36,7 +41,8 @@ function PlanetsProvider({ children }) {
         filterByName,
         handleChange,
         filterByNumericValues,
-        handleChangeSelect } }
+        handleChangeSelect,
+        handleChangeNumber } }
     >
       { children }
     </planetsContext.Provider>

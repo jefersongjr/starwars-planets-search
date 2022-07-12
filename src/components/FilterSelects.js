@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
 
 function SelectFilter() {
-  const { filterByNumericValues, handleChangeSelect } = useContext(planetsContext);
+  const { filterByNumericValues,
+    handleChangeSelect, handleChangeNumber } = useContext(planetsContext);
   return (
     <section>
       <select
@@ -32,7 +33,9 @@ function SelectFilter() {
       <input
         type="number"
         name="value"
+        value={ filterByNumericValues.value }
         data-testid="value-filter"
+        onChange={ handleChangeNumber }
       />
 
     </section>
