@@ -26,8 +26,9 @@ function PlanetsProvider({ children }) {
   };
 
   const saveFilters = () => {
-    const { column, comparision, value } = filterByNumericValues;
-    setsavedFilter((oldState) => ([...oldState, { column, comparision, value }]));
+    const { column, comparasion, value } = filterByNumericValues;
+    setsavedFilter((oldState) => ([...oldState,
+      { column, comparasion, value, filterByName }]));
   };
 
   useEffect(() => {
