@@ -3,7 +3,7 @@ import planetsContext from '../context/planetsContext';
 
 function SelectFilter() {
   const { filterByNumericValues,
-    handleChangeSelect, handleChangeNumber } = useContext(planetsContext);
+    handleChangeSelect, handleChangeNumber, saveFilters } = useContext(planetsContext);
   return (
     <section>
       <select
@@ -41,7 +41,7 @@ function SelectFilter() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ () => console.log(filterByNumericValues) }
+        onClick={ saveFilters }
       >
         Filtrar
       </button>

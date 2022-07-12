@@ -8,6 +8,7 @@ function PlanetsProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState({});
+  const [savedFilter, setsavedFilter] = useState([]);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -22,6 +23,11 @@ function PlanetsProvider({ children }) {
   const handleChangeNumber = ({ target }) => {
     const { value, name } = target;
     setFilterByNumericValues((oldState) => ({ ...oldState, [name]: value }));
+  };
+
+  const saveFilters = () => {
+    const { column, comparision, value } = filterByNumericValues;
+    setsavedFilter((oldState) => ([...oldState, { column, comparision, value }]));
   };
 
   useEffect(() => {
@@ -42,7 +48,9 @@ function PlanetsProvider({ children }) {
         handleChange,
         filterByNumericValues,
         handleChangeSelect,
-        handleChangeNumber } }
+        handleChangeNumber,
+        savedFilter,
+        saveFilters } }
     >
       { children }
     </planetsContext.Provider>
