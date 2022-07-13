@@ -9,6 +9,7 @@ function PlanetsProvider({ children }) {
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState({});
   const [savedFilter, setsavedFilter] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -33,18 +34,38 @@ function PlanetsProvider({ children }) {
       });
     };
     fetchData();
+    const mockData = (x) => {
+      setFilteredData(x);
+    };
+    mockData(data);
   }, []);
+
+  useEffect(() => {
+    savedFilter.forEach((filterObject) => {
+      switch (filterObject.comparasion) {
+      case 'menor que':
+        setFilteredData(data.filter((x) => x[filterObject.column] < filterObject.value));
+        break;
+
+      case 'maior que':
+        setFilteredData(data.filter((x) => x[filterObject.column] > filterObject.value));
+        break;
+
+      case 'igual a':
+        setFilteredData(data.filter((x) => (
+          x[filterObject.column] === filterObject.value)));
+        break;
+
+      default:
+        break;
+      }
+    });
+  });
 
   const saveFilters = () => {
     const { column, comparasion, value } = filterByNumericValues;
     setsavedFilter((oldState) => ([...oldState,
       { column, comparasion, value, filterByName }]));
-
-    savedFilter.forEach((filterObject) => {
-      if (filterObject.filterByName) {
-        setData(data.filter((x) => x.name.includes(filterByName)));
-      }
-    });
   };
 
   return (
@@ -57,7 +78,8 @@ function PlanetsProvider({ children }) {
         handleChangeSelect,
         handleChangeNumber,
         savedFilter,
-        saveFilters } }
+        saveFilters,
+        filteredData } }
     >
       { children }
     </planetsContext.Provider>

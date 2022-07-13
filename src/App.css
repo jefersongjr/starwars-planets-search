@@ -1,3 +1,13 @@
+body {
+  background-attachment: fixed;
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/007bbc88-dad3-4173-9f58-977813152d61/d61tom2-d507cc3b-e6f2-4a9b-9f30-a4f5fea9c53f.jpg');
+  background-repeat: round;
+  background-size: cover;
+}
+
+.loading {
+  opacity: 0.7;
+}
 .App {
   text-align: center;
 }

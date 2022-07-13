@@ -4,7 +4,7 @@ import planetsContext from '../context/planetsContext';
 import Carregando from './Carregando';
 
 function Table() {
-  const { data, loading, filterByName } = useContext(planetsContext);
+  const { loading, filterByName, filteredData } = useContext(planetsContext);
   return (
     <div>
       <table>
@@ -26,7 +26,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { loading ? <Carregando /> : (data.filter((x) => (
+          { loading ? <Carregando /> : (filteredData.filter((x) => (
             x.name.includes(filterByName))).map((item) => (
             (
               <tr key={ item.name }>

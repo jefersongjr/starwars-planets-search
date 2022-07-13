@@ -10,4 +10,17 @@ th {
 
 td {
   border: 2px solid black;
+  color: white;
+}
+
+.tittle-loading {
+  color: white;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 70%;
+  text-align: center;
+  width: 60%;
 }
