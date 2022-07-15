@@ -4,10 +4,10 @@ import planetsContext from './planetsContext';
 import getPlanets from '../services/getApiPlanets';
 
 function PlanetsProvider({ children }) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterByName, setFilterByName] = useState('');
-  const [filterByNumericValues, setFilterByNumericValues] = useState({});
+  const [filterByNumericValues, setFilterByNumericValues] = useState({ value: 0 });
   const [savedFilter, setsavedFilter] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
@@ -33,39 +33,42 @@ function PlanetsProvider({ children }) {
         setLoading(false);
       });
     };
+
     fetchData();
-    const mockData = (x) => {
-      setFilteredData(x);
-    };
-    mockData(data);
+    setFilteredData(data);
   }, []);
 
   useEffect(() => {
+    let filter = [...data];
     savedFilter.forEach((filterObject) => {
       switch (filterObject.comparasion) {
       case 'menor que':
-        setFilteredData(data.filter((x) => x[filterObject.column] < filterObject.value));
+        filter = filter.filter((x) => (
+          x[filterObject.column] < filterObject.value));
         break;
 
       case 'maior que':
-        setFilteredData(data.filter((x) => x[filterObject.column] > filterObject.value));
+        filter = filter.filter((x) => (
+          x[filterObject.column] > filterObject.value));
         break;
 
       case 'igual a':
-        setFilteredData(data.filter((x) => (
-          x[filterObject.column] === filterObject.value)));
+        filter = filter.filter((x) => (
+          x[filterObject.column] === filterObject.value));
         break;
 
       default:
+        filter = data;
         break;
       }
     });
-  });
+    setFilteredData(filter);
+  }, [savedFilter, data]);
 
   const saveFilters = () => {
     const { column, comparasion, value } = filterByNumericValues;
     setsavedFilter((oldState) => ([...oldState,
-      { column, comparasion, value, filterByName }]));
+      { column, comparasion, value }]));
   };
 
   return (
@@ -87,7 +90,7 @@ function PlanetsProvider({ children }) {
 }
 
 PlanetsProvider.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export default PlanetsProvider;

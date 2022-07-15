@@ -25,8 +25,8 @@ function SelectFilter() {
         data-testid="comparison-filter"
         onChange={ handleChangeSelect }
       >
-        <option>menor que</option>
         <option>maior que</option>
+        <option>menor que</option>
         <option>igual a</option>
       </select>
 
