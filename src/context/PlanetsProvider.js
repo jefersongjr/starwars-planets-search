@@ -72,9 +72,24 @@ function PlanetsProvider({ children }) {
 
   const saveFilters = () => {
     const { column, comparasion, value } = filterByNumericValues;
-    setsavedFilter((oldState) => ([...oldState,
-      { column, comparasion, value }]));
-    setUsedFilters((oldState) => [...oldState, column]);
+    const verifyRepeatFilter = savedFilter.some((filter) => (
+      filter.column === column && (
+        filter.comparasion === comparasion && filter.value === value)));
+    if (!verifyRepeatFilter) {
+      setsavedFilter((oldState) => ([...oldState,
+        { column, comparasion, value }]));
+    }
+    setUsedFilters(column);
+  };
+
+  const removeFilter = ({ target }) => {
+    const filterRemove = savedFilter;
+    const removeList = filterRemove.filter((filter) => filter.column !== target.name);
+    setsavedFilter(removeList);
+  };
+
+  const removeAllFilters = () => {
+    setsavedFilter([]);
   };
 
   return (
@@ -90,6 +105,8 @@ function PlanetsProvider({ children }) {
         saveFilters,
         filteredData,
         usedFilters,
+        removeFilter,
+        removeAllFilters,
       } }
     >
       { children }
