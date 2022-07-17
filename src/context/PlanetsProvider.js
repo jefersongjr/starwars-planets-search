@@ -7,7 +7,10 @@ function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterByName, setFilterByName] = useState('');
-  const [filterByNumericValues, setFilterByNumericValues] = useState({ value: 0 });
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
+    column: 'population',
+    comparasion: 'maior que',
+    value: 0 });
   const [savedFilter, setsavedFilter] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
@@ -39,30 +42,31 @@ function PlanetsProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    let filter = [...data];
+    let filteredDatas = [...data];
     savedFilter.forEach((filterObject) => {
       switch (filterObject.comparasion) {
       case 'menor que':
-        filter = filter.filter((x) => (
-          x[filterObject.column] < filterObject.value));
+        filteredDatas = filteredDatas.filter((x) => (
+          x[filterObject.column] < Number(filterObject.value)));
         break;
 
       case 'maior que':
-        filter = filter.filter((x) => (
-          x[filterObject.column] > filterObject.value));
+        filteredDatas = filteredDatas.filter((x) => (
+          x[filterObject.column] > Number(filterObject.value)));
+        console.log(filteredDatas);
         break;
 
       case 'igual a':
-        filter = filter.filter((x) => (
+        filteredDatas = filteredDatas.filter((x) => (
           x[filterObject.column] === filterObject.value));
         break;
 
       default:
-        filter = data;
+        filteredDatas = data;
         break;
       }
     });
-    setFilteredData(filter);
+    setFilteredData(filteredDatas);
   }, [savedFilter, data]);
 
   const saveFilters = () => {
