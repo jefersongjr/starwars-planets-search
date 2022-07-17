@@ -13,6 +13,7 @@ function PlanetsProvider({ children }) {
     value: 0 });
   const [savedFilter, setsavedFilter] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [usedFilters, setUsedFilters] = useState([]);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -73,6 +74,7 @@ function PlanetsProvider({ children }) {
     const { column, comparasion, value } = filterByNumericValues;
     setsavedFilter((oldState) => ([...oldState,
       { column, comparasion, value }]));
+    setUsedFilters((oldState) => [...oldState, column]);
   };
 
   return (
@@ -86,7 +88,9 @@ function PlanetsProvider({ children }) {
         handleChangeNumber,
         savedFilter,
         saveFilters,
-        filteredData } }
+        filteredData,
+        usedFilters,
+      } }
     >
       { children }
     </planetsContext.Provider>
