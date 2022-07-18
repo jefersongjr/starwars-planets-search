@@ -1,31 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../App';
 import mockData from '../services/mockData';
+import userEvent from '@testing-library/user-event';
 
 
-const mockFetch = () => {
-  jest.spyOn(global, 'fetch')
-    .mockImplementation(() => Promise.resolve({
-      status: 200,
-      ok: true,
-      json: () => Promise.resolve(mockData),
-    }));
-};
-
-describe('1-teste se é feita a chamada da API ', () => {
-  beforeEach(mockFetch)
-  afterEach(() => jest.clearAllMocks());
-  test('teste se é feita a requisição da API', async () => {
-    render(<App />);
-    const loading = screen.queryByAltText('bb-8')
-
-    expect(spy).toBeCalled();
-
-  });
-});
-
-describe('2- teste o forms de filtros é renderizado', () => {
+describe('1- teste o forms de filtros é renderizado', () => {
   test('teste se Input para filtrar texto é renderizado', () => {
       render(<App />);
       const InputFilterName = screen.getByTestId('name-filter')
@@ -42,23 +22,58 @@ describe('2- teste o forms de filtros é renderizado', () => {
    expect(filterSelectComparison).toBeInTheDocument();
    expect(filterSelectValue).toBeInTheDocument();
   });
-});
 
-describe('2-teste se é feita a chamada da API ', () => {
-  test('teste se Input para filtrar texto é renderizado', () => {
-      render(<App />);
-      const InputFilterName = screen.getByTestId('name-filter')
-      expect(InputFilterName).toBeInTheDocument();
-    });
-
-  test('teste se o formulário de filtro numérico é renderizado', () => {
+  test('teste se o botão para adicionar os filtros númericos é renderizado', () => {
     render(<App />);
-    const filterSelectColumn = screen.getByTestId('column-filter')
-    const filterSelectComparison = screen.getByTestId('comparison-filter')
-    const filterSelectValue = screen.getByTestId('value-filter')
+    const filterSelectButton = screen.getByTestId('button-filter')
 
-   expect(filterSelectColumn).toBeInTheDocument();
-   expect(filterSelectComparison).toBeInTheDocument();
-   expect(filterSelectValue).toBeInTheDocument();
+   expect(filterSelectButton).toBeInTheDocument();
   });
 });
+
+describe('2-  teste se a tabela é renderizada  ', () => {
+  test('teste se o header da tabela é renderizado', async () => {
+      render(<App />);
+    
+    expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Rotation' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Orbital' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Diameter' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Climate' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Gravity' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Terrain' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Surface Water' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Population' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Films' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Created' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'Edited' })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: 'URL' })).toBeInTheDocument();
+    });
+
+    test('teste se a tabela é renderizado com o numero certo de linhas', async () => {
+      render(<App />);
+      const row = await screen.findAllByTestId('table-row');
+      expect(row).toHaveLength(10);
+ 
+    });
+});
+
+describe('3-  teste a funcionalidade dos filtros ', () => {
+  test('teste se o filtro por nome funciona corretamente', async () => {
+      render(<App />);
+      const filterByName = screen.getByTestId('name-filter');
+      let row = await screen.findAllByTestId('table-row');
+      expect(row).toHaveLength(10);
+      expect(filterByName).toBeInTheDocument();
+
+      userEvent.type( filterByName, 'oo');
+      
+      row = await screen.findAllByTestId('table-row');
+
+      expect(row).toHaveLength(2);
+
+
+    });
+});
+
+
