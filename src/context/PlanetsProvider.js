@@ -72,14 +72,8 @@ function PlanetsProvider({ children }) {
 
   const saveFilters = () => {
     const { column, comparasion, value } = filterByNumericValues;
-    const verifyRepeatFilter = savedFilter.some((filter) => (
-      filter.column === column && (
-        filter.comparasion === comparasion && filter.value === value)));
-    if (!verifyRepeatFilter) {
-      setsavedFilter((oldState) => ([...oldState,
-        { column, comparasion, value }]));
-    }
-    setUsedFilters(column);
+    setsavedFilter((oldState) => ([...oldState,
+      { column, comparasion, value }]));
   };
 
   const removeFilter = ({ target }) => {
