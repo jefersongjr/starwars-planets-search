@@ -3,8 +3,7 @@ import planetsContext from '../context/planetsContext';
 
 function SelectFilter() {
   const { filterByNumericValues,
-    handleChangeSelect, handleChangeNumber, saveFilters,
-    usedFilters } = useContext(planetsContext);
+    handleChangeSelect, handleChangeNumber, saveFilters } = useContext(planetsContext);
   return (
     <section>
       <select
@@ -13,11 +12,11 @@ function SelectFilter() {
         data-testid="column-filter"
         onChange={ handleChangeSelect }
       >
-        { !usedFilters.includes('population') && <option>population</option>}
-        { !usedFilters.includes('orbital_period') && <option>orbital_period</option> }
-        { !usedFilters.includes('diameter') && <option>diameter</option>}
-        { !usedFilters.includes('rotation_period') && <option>rotation_period</option> }
-        { !usedFilters.includes('surface_water') && <option>surface_water</option>}
+        <option>population</option>
+        <option>orbital_period</option>
+        <option>diameter</option>
+        <option>rotation_period</option>
+        <option>surface_water</option>
       </select>
 
       <select

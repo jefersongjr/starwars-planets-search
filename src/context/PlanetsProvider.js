@@ -13,7 +13,6 @@ function PlanetsProvider({ children }) {
     value: 0 });
   const [savedFilter, setsavedFilter] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [usedFilters, setUsedFilters] = useState([]);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -98,7 +97,6 @@ function PlanetsProvider({ children }) {
         savedFilter,
         saveFilters,
         filteredData,
-        usedFilters,
         removeFilter,
         removeAllFilters,
       } }
