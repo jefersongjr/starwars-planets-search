@@ -30,7 +30,7 @@ function Table() {
             filteredData.filter((x) => (
               x.name.includes(filterByName))).map((item) => (
               (
-                <tr key={ item.name }>
+                <tr data-testid="table-row" key={ item.name }>
                   <td>{ item.name }</td>
                   <td>{ item.rotation_period }</td>
                   <td>{ item.orbital_period }</td>

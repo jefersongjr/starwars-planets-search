@@ -59,7 +59,21 @@ describe('2-  teste se a tabela é renderizada  ', () => {
 });
 
 describe('3-  teste a funcionalidade dos filtros ', () => {
-  test('teste se o filtro por nome funciona corretamente', async () => {
+  test('teste se o filtro por nome funciona corretamente ao digitar "o" ', async () => {
+      render(<App />);
+      const filterByName = screen.getByTestId('name-filter');
+      let row = await screen.findAllByTestId('table-row');
+      expect(row).toHaveLength(10);
+      expect(filterByName).toBeInTheDocument();
+
+      userEvent.type( filterByName, 'o');
+      
+      row = await screen.findAllByTestId('table-row');
+
+      expect(row).toHaveLength(7);
+    });
+
+    test('teste se o filtro por nome funciona corretamente ao digitar "oo" ', async () => {
       render(<App />);
       const filterByName = screen.getByTestId('name-filter');
       let row = await screen.findAllByTestId('table-row');
