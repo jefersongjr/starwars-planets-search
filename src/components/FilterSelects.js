@@ -3,7 +3,9 @@ import planetsContext from '../context/planetsContext';
 
 function SelectFilter() {
   const { filterByNumericValues,
-    handleChangeSelect, handleChangeNumber, saveFilters } = useContext(planetsContext);
+    handleChangeSelect, handleChangeNumber, saveFilters,
+    savedFilter } = useContext(planetsContext);
+  const findColumn = (columnType) => !savedFilter.find((x) => x.column === columnType);
   return (
     <section>
       <select
@@ -12,11 +14,11 @@ function SelectFilter() {
         data-testid="column-filter"
         onChange={ handleChangeSelect }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        { findColumn('population') && <option>population</option> }
+        { findColumn('orbital_period') && <option>orbital_period</option> }
+        { findColumn('diameter') && <option>diameter</option> }
+        { findColumn('rotation_period') && <option>rotation_period</option> }
+        { findColumn('surface_water') && <option>surface_water</option> }
       </select>
 
       <select

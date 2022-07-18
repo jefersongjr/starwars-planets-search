@@ -13,6 +13,8 @@ function PlanetsProvider({ children }) {
     value: 0 });
   const [savedFilter, setsavedFilter] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [allColumns, setAllColumns] = useState(['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -53,7 +55,6 @@ function PlanetsProvider({ children }) {
       case 'maior que':
         filteredDatas = filteredDatas.filter((x) => (
           x[filterObject.column] > Number(filterObject.value)));
-        console.log(filteredDatas);
         break;
 
       case 'igual a':
@@ -67,12 +68,18 @@ function PlanetsProvider({ children }) {
       }
     });
     setFilteredData(filteredDatas);
+    setFilterByNumericValues({
+      column: allColumns[0], comparasion: 'maior que', value: 0 });
   }, [savedFilter, data]);
 
   const saveFilters = () => {
     const { column, comparasion, value } = filterByNumericValues;
-    setsavedFilter((oldState) => ([...oldState,
-      { column, comparasion, value }]));
+    if (savedFilter && !savedFilter.find((x) => x.column === column)) {
+      setsavedFilter((oldState) => ([...oldState,
+        { column, comparasion, value }]));
+      const y = allColumns.filter((z) => z !== column);
+      setAllColumns(y);
+    }
   };
 
   const removeFilter = ({ target }) => {
