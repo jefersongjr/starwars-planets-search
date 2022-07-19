@@ -73,19 +73,24 @@ describe('3-  teste a funcionalidade dos filtros ', () => {
       expect(row).toHaveLength(7);
     });
 
-    test('teste se o filtro por nome funciona corretamente ao digitar "oo" ', async () => {
+    test('teste se adiciona o filtro numérico ao clicar no botão', async () => {
       render(<App />);
-      const filterByName = screen.getByTestId('name-filter');
+
+      const filterSelectColumn = screen.getByTestId('column-filter')
+      const filterSelectComparison = screen.getByTestId('comparison-filter')
+      const filterSelectValue = screen.getByTestId('value-filter')
+      const filterSelectButton = screen.getByTestId('button-filter')
+ 
       let row = await screen.findAllByTestId('table-row');
       expect(row).toHaveLength(10);
-      expect(filterByName).toBeInTheDocument();
 
-      userEvent.type( filterByName, 'oo');
-      
-      row = await screen.findAllByTestId('table-row');
+      userEvent.type( filterSelectColumn, 'diameter');
+      userEvent.type( filterSelectComparison, 'maior que');
+      userEvent.type( filterSelectValue, '89000');
+      fireEvent.click(filterSelectButton);
 
-      expect(row).toHaveLength(2);
-
+      const filterList = screen.getByTestId('filter');
+      expect(filterList).toBeInTheDocument();
 
     });
 });
